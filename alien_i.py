@@ -14,7 +14,7 @@ class AlienInvasion(object):
 
         # Make the Obstacle.
         self.obstacles = pygame.sprite.Group()
-        self._create_obstacles()
+        self._create_set_of_obstacles()
         self.ship = Ship(self)
 
 
@@ -89,10 +89,30 @@ class AlienInvasion(object):
         # Make the most recently drawn screen visible.
         pygame.display.flip()
 
-    def _create_obstacles(self):
+    def _create_set_of_obstacles(self):
         """Create the set of obstacles"""
         obstacle = Obstacle(self)
+        obstacle_width, obstacle_height = obstacle.rect.size
+        available_space_x = self.settings.screen_width - (2 * obstacle_width)
+        number_obstacles_x = available_space_x // (2 * obstacle_width)
+
+        # Create the full set of obstacles
+        for row_number in range(1, 4):
+            # Create the full row of obstacles
+            for obstacle_number in range(1, 4):
+                self._create_obstacle(obstacle_number, row_number)
+
+    def _create_obstacle(self, obstacle_number, row_number):
+        """Create an obstacle and place it in the row"""
+        obstacle = Obstacle(self)
+        obstacle_width, obstacle_height = obstacle.rect.size
+
+        # There are supposed to be a set 3x3 of obstacles
+        # ... and we just hope that the screen is big enough ;)
+        obstacle.rect.centerx = self.settings.screen_width/4 * obstacle_number
+        obstacle.rect.centery = self.settings.screen_height/4 * row_number
         self.obstacles.add(obstacle)
+
 
 if __name__ == '__main__':
     ai = AlienInvasion()

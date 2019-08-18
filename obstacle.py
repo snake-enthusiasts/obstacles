@@ -21,8 +21,7 @@ class Obstacle(Sprite):
         self.image = pygame.image.load('images/alien.bmp')
         self.rect = self.image.get_rect()
         # Start each new alien near the top left of the screen.
-        self.rect.x = 2 * self.rect.width
-        self.rect.y = 2 * self.rect.width
+    
         """
             def draw_obstacle(self):
                 # Draw obstacle on the screen.
