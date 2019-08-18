@@ -11,6 +11,7 @@ class Ship(Sprite):
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
         self.obstacles = ai_game.obstacles
+        self.finish = ai_game.finish
 
 
         self.image = pygame.image.load('images/ship.bmp')
@@ -51,8 +52,13 @@ class Ship(Sprite):
         # If there is no collision with obstace
         # update rect object from self.x and self.y.
         self.collision_with_obstacle = pygame.sprite.spritecollideany(self, self.obstacles)
+        self.collision_with_finish = pygame.sprite.collide_rect(self, self.finish)
+
         if not self.collision_with_obstacle:
-            print("OK")
+            if not self.collision_with_finish:
+                print("OK")
+            else:
+                print("Finish")
         else:
             self.rect.x = x_temp
             self.rect.y = y_temp

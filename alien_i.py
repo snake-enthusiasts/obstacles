@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from obstacle import Obstacle
+from finish import Finish
 from ship import Ship
 
 class AlienInvasion(object):
@@ -12,9 +13,10 @@ class AlienInvasion(object):
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
 
-        # Make the Obstacle.
+        # Make the Obstacles & Finish
         self.obstacles = pygame.sprite.Group()
         self._create_set_of_obstacles()
+        self.finish = Finish(self)
         self.ship = Ship(self)
 
 
@@ -72,6 +74,7 @@ class AlienInvasion(object):
         """Update images on the screen and flip to the new screen"""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        self.finish.blitme()
         """
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
